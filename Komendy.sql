@@ -1,5 +1,5 @@
 
-SELECT Id_pietro,Nazwa_pietro,geoschemat.epoka.Id_epoka ,Nazwa_epoka,geoschemat.okres.Id_okres,Nazwa_okres,geoschemat.era.Id_era,Nazwa_era, geoschemat.eon.Id_eon,Nazwa_eon  INTO geoschemat
+SELECT Id_pietro,Nazwa_pietro,geoschemat.epoka.Id_epoka ,Nazwa_epoka,geoschemat.okres.Id_okres,Nazwa_okres,geoschemat.era.Id_era,Nazwa_era, geoschemat.eon.Id_eon,Nazwa_eon  INTO GeoTabela
 FROM  geoschemat.pietro 
 INNER JOIN geoschemat.epoka 
 INNER JOIN geoschemat.okres 
@@ -11,9 +11,9 @@ ON geoschemat.epoka.Id_okres = geoschemat.okres.Id_okres
 ON geoschemat.pietro.Id_epoka =geoschemat.epoka.Id_epoka
 ;
 
-SELECT * FROM geoschemat
+SELECT * FROM GeoTabela
 
-ALTER TABLE geoschemat ADD PRIMARY KEY (ID_pietro) 
+ALTER TABLE GeoTabela ADD PRIMARY KEY (ID_pietro) 
 
 --______________________________________________________________________________________________________Tabela Dziesiec
 
@@ -41,8 +41,8 @@ FROM Dziesiec a1, Dziesiec a2, Dziesiec a3, Dziesiec a4, Dziesiec a5, Dziesiec a
 
 --______________________________________________________________________________________________________Zapytania
 
-SELECT COUNT(*) FROM Milion INNER JOIN geoschemat ON
-( (Milion.liczba%68)=(geoschemat.Id_pietro));
+SELECT COUNT(*) FROM Milion INNER JOIN GeoTabela ON
+( (Milion.liczba%68)=(GeoTabela.Id_pietro));
 
 SELECT COUNT(*) FROM Milion 
 INNER JOIN geoschemat.pietro 
@@ -58,7 +58,7 @@ ON ((Milion.liczba%68)=geoschemat.pietro.Id_pietro)
 ;
 
 SELECT COUNT(*) FROM Milion WHERE Milion.liczba%68=
-(SELECT Id_pietro FROM geoschemat WHERE Milion.liczba%68 = (Id_pietro));
+(SELECT Id_pietro FROM GeoTabela WHERE Milion.liczba%68 = (Id_pietro));
 
 
 SELECT COUNT(*) FROM Milion WHERE (Milion.liczba%68) in (SELECT geoschemat.pietro.Id_pietro 
